@@ -1,0 +1,51 @@
+RewriteEngine On
+# Принудительное перенаправление на HTTPS
+RewriteCond %{HTTPS} !=on [NC]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTP_HOST} ^farm429\.ru$ [NC]
+RewriteRule ^(.*)$ https://fitodomik.ru/$1 [R=301,L]
+# Редирект с www на домен без www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# Добавляем CSP заголовки
+Header set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net data:; img-src 'self' https: data: https://mc.yandex.ru; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://mc.yandex.ru 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net 'unsafe-inline'; connect-src 'self' https://mc.yandex.ru;"
+# Устанавливаем заголовки безопасности
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+# Запрещаем доступ к скрытым файлам и логам
+<FilesMatch "^\.|(\.log$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+# Allow access to font files
+<FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+# Set correct MIME types
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType font/woff .woff
+AddType font/woff2 .woff2
+# Запрет доступа к системным директориям
+RedirectMatch 403 ^/.git/.*$
+RedirectMatch 403 ^/includes/.*$
+RedirectMatch 403 ^/vendor/.*$
+# Обработка ошибок
+ErrorDocument 400 /404.php
+ErrorDocument 401 /404.php
+ErrorDocument 403 /404.php
+ErrorDocument 404 /404.php
+ErrorDocument 500 /404.php
+# Основные правила маршрутизации
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^pages/news/?$ pages/news/index.php [L]
+# Если файл не найден, перенаправляем на 404.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /404.php [L] 
