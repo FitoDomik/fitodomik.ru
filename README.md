@@ -4,11 +4,6 @@
 
 # 🌱 ФитоДомик - Умная мини-ферма
 
-![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?style=flat-square&logo=php&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.1.3-7952B3?style=flat-square&logo=bootstrap&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-
 > 🚀 Современное веб-приложение для управления умной мини-фермой с полным набором инструментов мониторинга и контроля
 
 ## 📋 Содержание
