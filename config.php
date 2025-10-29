@@ -1,8 +1,8 @@
 <?php
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'u3212739_info');
-define('DB_USER', 'u3212739_info');
-define('DB_PASS', 'u3212739_info');
+define('DB_NAME', 'u3307679_info');
+define('DB_USER', 'u3307679_info');
+define('DB_PASS', 'u3307679_info');
 define('TELEGRAM_BOT_TOKEN', '7927288160:AAFnNFSrlkeowVF-qHrAWxTK3OYwmexOU4g');
 define('TELEGRAM_CHAT_ID', '7886808180');
 try {
